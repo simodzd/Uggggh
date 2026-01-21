@@ -1,0 +1,45 @@
+name: Windows RDP with Tailscale
+
+on:
+  workflow_dispatch:
+    inputs:
+      tailscale_auth_key:
+        description: 'Your Tailscale authentication key'
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure RDP and install Tailscale
+        run: |
+          # The following is a conceptual script.
+          # In a real scenario, you'd use a robust script to:
+          # 1. Enable RDP on the Windows runner
+          # 2. Create a temporary user with a secure password
+          # 3. Download and install the Tailscale client
+          # 4. Authenticate Tailscale using the provided auth key
+          # 5. Configure firewall rules to allow RDP only from Tailscale IPs
+          #
+          # Many GitHub repositories and Gists provide complete PowerShell scripts for this purpose.
+          # Example concept (replace with an actual script):
+          # powershell -File .\\setup_rdp_tailscale.ps1 -AuthKey ${{ inputs.tailscale_auth_key }}
+          
+          Write-Host "Please use a dedicated script from a relevant GitHub repo, e.g., ItzLevvie/dind"
+          # The script would output the RDP connection details (Tailscale IP, username, password)
+        shell: powershell
+        # Note: A real implementation requires a script that runs 'tailscale up' and keeps the session alive.
+      
+      # An actual implementation will use a script that holds the job open (e.g., a while loop)
+      # so the RDP session can be used until the workflow times out.
+      - name: Keep job alive while RDP session is active (Conceptual)
+        run: |
+          # This step would usually be part of the setup script, holding the connection open.
+          Write-Host "RDP session is ready. Connect using the Tailscale IP and credentials provided by the previous script output."
+          # Example of a command to keep alive (don't run this literally):
+          # sleep 21600 # 6 hours timeout
+        shell: powershell
